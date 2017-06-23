@@ -1,5 +1,5 @@
 stacked_area_plot <-function(mat, # matrix with years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
-                             colorvec, # vector with colorcodes (length(colorvec) = ncol(mat))
+                             colorvec = 1:100, # vector with colorcodes (length(colorvec) = ncol(mat))
                              xaxt.steps, # steps for drawing tick marks at x-axis
                              yaxt.steps, # steps for drawing tick marks at x-axis
                              legend = T, # draw a legend??
@@ -17,6 +17,8 @@ stacked_area_plot <-function(mat, # matrix with years as rownames and sectors/co
        bty= "n", xaxt = "n", yaxt = "n", ...)
   axis(1, at = seq(min(years), max(years), xaxt.steps), lwd.ticks = 0.5, lwd = 0.5)
   axis(2, at = seq(0, signif(max(mat[,ncol(mat)]), 2), yaxt.steps), las = 2, lwd.ticks = 0.5, lwd = 0.5)
+  abline(v = seq(min(years), max(years), xaxt.steps), col = "grey30", lty = 2, lwd = 0.5)
+  abline(h = seq(0, signif(max(mat[,ncol(mat)]), 2), yaxt.steps), col = "grey30", lty = 2, lwd = 0.5)
   for(i in 1:ncol(mat)){
     polygon(xx, yy_mat[i,], col=colorvec[i], border=colorvec[i])
   }
@@ -24,9 +26,12 @@ stacked_area_plot <-function(mat, # matrix with years as rownames and sectors/co
   if(legend == T){
     if(is.character(legend.pos)) legend(legend.pos, legend = rev(colnames(mat)),
                                         fill = colorvec,
-                                        bty = "n", border = colorvec)
+                                        bty = "n", #box.col = "white", bg = "white",
+                                        border = colorvec)
     else legend(legend.pos[1], legend.pos[2], legend = rev(colnames(mat)),
                 fill = colorvec,
-                bty = "n", border = colorvec)
+                bty = "n", #box.col = "white",bg = "white"
+                border = colorvec
+                )
   }
 }
