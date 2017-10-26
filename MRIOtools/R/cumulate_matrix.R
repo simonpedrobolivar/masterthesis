@@ -1,3 +1,10 @@
+#' colwise cumulate values of a matrix (required for stacked_area_plot)
+#'
+#' @param mat matrix
+#' @param order boolean
+#' @return a cumulated matrix
+#' @export
+
 cumulate_matrix <- function(mat, order = T){
   # colwise cumulate values of a matrix (required for stacked_area_plot)
   if(order == T){

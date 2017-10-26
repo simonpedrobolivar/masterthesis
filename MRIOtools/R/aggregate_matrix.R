@@ -1,3 +1,14 @@
+#' aggregates matrices.
+#'
+#' @param mat matrix with years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
+#' @param n number of sectors/countries/etc. that stay
+#' @param fun function,  determines how first n sectors/countries/etc are determined
+#' @return a aggregated matrix
+#' @export
+
+
+
+
 aggregate_matrix <- function(mat,
                              n, # number of sectors/countries/etc. that stay
                              fun = mean # determines how first n sectors/countries/etc are determined

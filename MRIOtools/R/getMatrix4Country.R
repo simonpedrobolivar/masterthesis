@@ -1,3 +1,11 @@
+#' function to get detailed matrix for ONE country.
+#'
+#' @param mat matrix
+#' @param country.name character, name of the country
+#' @param time.vec vector
+#' @return a matrix
+#' @export
+
 getMatrix4Country <- function(mat, country.name, time.vec){
   #function to get detailed matrix for ONE country
   mat_country <- as.data.frame(matrix(nrow = length(time.vec), ncol = nrow(mat[[1]])))
