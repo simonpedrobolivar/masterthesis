@@ -1,3 +1,15 @@
+#' stacked area plot.
+#'
+#' @param mat matrix with years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
+#' @param colorvec vector with colorcodes (length(colorvec) = ncol(mat))
+#' @param xaxt.steps  steps for drawing tick marks at x-axis
+#' @param yaxt.steps  steps for drawing tick marks at x-axis
+#' @param legend boolean,  draw a legend??
+#' @param legend.pos coordinates (c(x,y) or position (e.g."bottomleft") of the legend
+#' @return a plot
+#' @export
+
+
 stacked_area_plot <-function(mat, # matrix with years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
                              colorvec = 1:100, # vector with colorcodes (length(colorvec) = ncol(mat))
                              xaxt.steps, # steps for drawing tick marks at x-axis
