@@ -9,19 +9,16 @@
 #' @param dir directory to where the new matrices should be saved
 #' @export
 
-extrapolate_matrix <- function(mat.list, years.obs, years.est, parallel = F, n.cores = NA, 
+extrapolate_matrix <- function(mat.list, years.obs, years.est, parallel = F, n.cores = 1, 
                                save.output = F, dir){
   n.col <- ncol(mat.list[[1]])
   n.row <- nrow(mat.list[[1]])
   # create timeseries
   ts <- create_timeseries(mat.list)
   if(parallel == T){ # parallele compution on multiple cores
-    if(n.cores == NA){
-      # Calculate the number of cores
-      no.cores <- detectCores() - 1
-    }
+    
     # Initiate cluster
-    cl <- makeCluster(no.cores, type = "FORK")
+    cl <- makeCluster(n.cores, type = "FORK")
     ts.extrapolated <- as.data.table(t(parSapply(cl, 1:nrow(ts), 
                                                            FUN = function(x) return(fitmodel(as.numeric(ts[x,]), 
                                                                                              years.obs = years.obs, 
