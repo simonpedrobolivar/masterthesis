@@ -18,7 +18,7 @@ extrapolate_matrix <- function(mat.list, years.obs, years.est, parallel = F, n.c
   if(parallel == T){ # parallele compution on multiple cores
     
     # Initiate cluster
-    cl <- makeCluster(n.cores, type = "FORK")
+    cl <- makeCluster(n.cores, type = "PSOCK")
     ts.extrapolated <- as.data.table(t(parSapply(cl, 1:nrow(ts), 
                                                            FUN = function(x) return(fitmodel(as.numeric(ts[x,]), 
                                                                                              years.obs = years.obs, 
@@ -31,7 +31,6 @@ extrapolate_matrix <- function(mat.list, years.obs, years.est, parallel = F, n.c
                                                                                    years.est = years.est)))))
   }
   # create new matrices
-  
   vec2mat <- function(x){
     # converts vector into matrix (size: n.row X n.col)
     return(as.data.table(matrix(x, nrow = n.row, 
