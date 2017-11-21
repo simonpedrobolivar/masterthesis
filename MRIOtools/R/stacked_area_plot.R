@@ -1,6 +1,8 @@
 #' stacked area plot.
 #'
 #' @param mat matrix with years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
+#' @param agg aggregated? calls aggregate_matrix function. Boolean
+#' @param agg.level aggregation level. Required if agg = T.
 #' @param colorvec vector with colorcodes (length(colorvec) = ncol(mat))
 #' @param xaxt.steps  steps for drawing tick marks at x-axis
 #' @param yaxt.steps  steps for drawing tick marks at x-axis
@@ -10,7 +12,9 @@
 #' @export
 
 
-stacked_area_plot <-function(mat, # matrix with years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
+stacked_area_plot <-function(dt, # matrix with years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
+                             agg = F,
+                             agg.level, 
                              colorvec = 1:100, # vector with colorcodes (length(colorvec) = ncol(mat))
                              xaxt.steps, # steps for drawing tick marks at x-axis
                              yaxt.steps, # steps for drawing tick marks at x-axis
@@ -18,7 +22,19 @@ stacked_area_plot <-function(mat, # matrix with years as rownames and sectors/co
                              legend.pos = "topleft", # coordinates (c(x,y) or position (e.g."bottomleft") of the legend, see ?legend)
                              ... # additional arguments for plot(), see ?plot
 ){
-  years <- rownames(mat)
+  names   <- names(dt)
+  if(names[1] != "Year" & names[1] != "year") stop("First column of data table needs to contain the years")
+  years   <- unique(dt[[names[1]]])
+  sectors <- unique(dt[[names[2]]])
+  mat <- matrix(dt[[names[3]]], ncol = length(sectors), nrow = length(years), byrow = T)
+  print(dim(mat))
+  colnames(mat) <- sectors
+  rownames(mat) <- years
+  if(agg){
+    if(is.null(agg.level)) stop("agg.level must be specified!")
+    mat <- aggregate_matrix(mat, agg.level)
+  }
+  mat <- cumulate_matrix(mat)
   xx <- c(years, rev(years)) # create x-values of the polygons (same for all)
   yy_mat <- matrix(0, nrow = ncol(mat), ncol = 2 * nrow(mat)) # matrix to store y-values of each polygon
   for(i in 1:ncol(mat)){
