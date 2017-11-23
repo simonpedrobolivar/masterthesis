@@ -5,7 +5,7 @@
 \title{Returns a list containing the extrapolated matrices.}
 \usage{
 extrapolate_matrix(mat.list, years.obs, years.est, parallel = F,
-  n.cores = NA, save.output = F, dir)
+  n.cores = 1, save.output = F, dir)
 }
 \arguments{
 \item{years.obs}{years for which observations exist. Needs to be equal to number of columns of ts.dt}
@@ -14,7 +14,7 @@ extrapolate_matrix(mat.list, years.obs, years.est, parallel = F,
 
 \item{parallel}{boolean. calculation parallel on multiple cores}
 
-\item{n.cores}{number of cores. If n.cores = NA the number of cores of the machine is detected and all but one are used}
+\item{n.cores}{number of cores. Default n.cores = 1.}
 
 \item{save.output}{boolean. Shall the output (new matrices) be saved as .csv to directory dir (specified with param dir)?}
 

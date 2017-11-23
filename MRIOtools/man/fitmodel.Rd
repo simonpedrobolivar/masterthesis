@@ -4,7 +4,7 @@
 \alias{fitmodel}
 \title{fits a model to a timeseries and extrapolates it into the future}
 \usage{
-fitmodel(x, years.obs, years.est)
+fitmodel(x, years.obs, years.est, type = "glm")
 }
 \arguments{
 \item{x}{a timeseries of length(years.obs) observations}
