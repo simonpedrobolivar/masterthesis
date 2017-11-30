@@ -4,10 +4,13 @@
 \alias{stacked_area_plot}
 \title{stacked area plot.}
 \usage{
-stacked_area_plot(dt, agg = F, agg.level, colorvec = 1:100, xaxt.steps,
-  yaxt.steps, legend = T, legend.pos = "topleft", ...)
+stacked_area_plot(data, agg = F, agg.level, colorvec = 1:100, xaxt.steps,
+  yaxt.steps, ylim.adjust = 0, legend = T, legend.pos = "topleft",
+  legend.ncol = 1, legend.bty = "o", ...)
 }
 \arguments{
+\item{data}{either matrix with Years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T}
+
 \item{agg}{aggregated? calls aggregate_matrix function. Boolean}
 
 \item{agg.level}{aggregation level. Required if agg = T.}
@@ -21,8 +24,6 @@ stacked_area_plot(dt, agg = F, agg.level, colorvec = 1:100, xaxt.steps,
 \item{legend}{boolean,  draw a legend??}
 
 \item{legend.pos}{coordinates (c(x,y) or position (e.g."bottomleft") of the legend}
-
-\item{mat}{matrix with years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T}
 }
 \value{
 a plot

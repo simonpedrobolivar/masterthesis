@@ -1,6 +1,6 @@
 #' stacked area plot.
 #'
-#' @param mat matrix with Years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
+#' @param data either matrix with Years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
 #' @param agg aggregated? calls aggregate_matrix function. Boolean
 #' @param agg.level aggregation level. Required if agg = T.
 #' @param colorvec vector with colorcodes (length(colorvec) = ncol(mat))
@@ -12,7 +12,7 @@
 #' @export
 
 
-stacked_area_plot <-function(dt, # matrix with Years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
+stacked_area_plot <-function(data, # either a matrix with Years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
                              agg = F,
                              agg.level,
                              colorvec = 1:100, # vector with colorcodes (length(colorvec) = ncol(mat))
@@ -21,17 +21,24 @@ stacked_area_plot <-function(dt, # matrix with Years as rownames and sectors/cou
                              ylim.adjust = 0, # adjust the upper limit of y-axis
                              legend = T, # draw a legend??
                              legend.pos = "topleft", # coordinates (c(x,y) or position (e.g."bottomleft") of the legend, see ?legend)
-                             legend.ncol = 1, 
+                             legend.ncol = 1,
+                             legend.bty = "o",
                              ... # additional arguments for plot(), see ?plot
 ){
-  names   <- names(dt)
-  if(names[1] != "Year" & names[1] != "year") stop("First column of data table needs to contain the Years")
-  Years   <- unique(dt[[names[1]]])
-  sectors <- unique(dt[[names[2]]])
-  mat <- matrix(dt[[names[3]]], ncol = length(sectors), nrow = length(Years), byrow = T)
-  print(dim(mat))
-  colnames(mat) <- sectors
-  rownames(mat) <- Years
+  if(is.data.table(data)){
+    dt <- data
+    names   <- names(dt)
+    if(names[1] != "Year" & names[1] != "year") stop("First column of data table needs to contain the Years")
+    Years   <- unique(dt[[names[1]]])
+    sectors <- unique(dt[[names[2]]])
+    mat <- matrix(dt[[names[3]]], ncol = length(sectors), nrow = length(Years), byrow = T)
+    print(dim(mat))
+    colnames(mat) <- sectors
+    rownames(mat) <- Years
+  }else{
+    mat <- data
+    Years <- rownames(mat)
+  } 
   if(agg){
     if(is.null(agg.level)) stop("agg.level must be specified!")
     mat <- aggregate_matrix(mat, agg.level)
@@ -57,17 +64,17 @@ stacked_area_plot <-function(dt, # matrix with Years as rownames and sectors/cou
   if(legend == T){
     if(is.character(legend.pos)) legend(legend.pos, legend = rev(colnames(mat)),
                                         fill = colorvec,
-                                        #bty = "n", 
+                                        bty = legend.bty, 
                                         box.col = "white", bg = "white",
                                         border = colorvec,
                                         ncol = legend.ncol 
                                         #x.intersp = 0.5, 
                                         #text.width = 4
-                                        )
+    )
     else legend(legend.pos[1], legend.pos[2], legend = rev(colnames(mat)),
                 fill = colorvec,
                 bty = "n", #box.col = "white",bg = "white"
                 border = colorvec
-                )
+    )
   }
 }
