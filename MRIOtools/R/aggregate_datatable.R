@@ -7,8 +7,6 @@
 #' @export
 
 
-
-
 aggregate_datatable <- function(dt,
                                 n, # number of sectors/countries/etc. that stay
                                 col # name of column used for aggregating
@@ -16,14 +14,12 @@ aggregate_datatable <- function(dt,
   # aggregates a dtrix
   # first n sectors/countries/etc. stay, all others are subsumed into one sector "Other"
   setorderv(dt, cols = col, order = -1)
-  
-  dt_agg <- dt[1:n]
+  dt_agg <- dt[1:n,]
   tempdt <- data.table("Rest", dt[(n+1):nrow(dt), sum(V1)])
   setnames(tempdt, names(dt))
   dt_agg <- rbind(dt_agg, tempdt)
   return(dt_agg)
 }
-
 
 
 
