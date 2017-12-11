@@ -1,3 +1,4 @@
+##########################################################################################################################################
 #' stacked area plot.
 #'
 #' @param data either matrix with Years as rownames and sectors/countries(/...) as colnames --> output of function cumulate_matrix with order = T
@@ -28,7 +29,7 @@ stacked_area_plot <-function(data, # either a matrix with Years as rownames and 
   if(is.data.table(data)){
     dt <- data
     names   <- names(dt)
-    if(names[1] != "Year" & names[1] != "year") stop("First column of data table needs to contain the Years")
+    if(names[1] != "Year" & names[1] != "year") stop("First column of data table needs to contain the Years! Name of the column either <Year> or <year> ")
     Years   <- unique(dt[[names[1]]])
     sectors <- unique(dt[[names[2]]])
     mat <- matrix(dt[[names[3]]], ncol = length(sectors), nrow = length(Years), byrow = T)
@@ -78,3 +79,4 @@ stacked_area_plot <-function(data, # either a matrix with Years as rownames and 
     )
   }
 }
+

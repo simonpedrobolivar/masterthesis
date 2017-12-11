@@ -60,6 +60,9 @@ extrapolate_A_mat <- function(mat.list, years.obs, years.est, scaleTo1 = F,paral
   if(save.output == T){
     # TODO
   }
+  mat.extrapolated.list <- lapply(mat.extrapolated.list, 
+                                  function(x) apply(x, c(1,2), 
+                                                    function(x) ifelse(is.nan(x), 0, x))) # all NaN values (resulting from matrix multipliakation) are set to 0
   return(mat.extrapolated.list)
 }
 
