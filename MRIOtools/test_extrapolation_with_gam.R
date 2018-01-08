@@ -86,10 +86,12 @@ plot(years_obs, ts, xlab = "Years", type = "l")
 ################################################### #
 #### 3. fit gam ####################################
 ################################################# #
+ts <- 1:17 + rnorm(17)
+plot(ts)
 
 # 1. basic settings
 fm1 <- gam(ts ~ s(years_obs))
-plot(fm1, shade = T, xlim = c(min(years), max(years)))
+a <- plot.gam(fm1, shade = T, xlim = c(min(years), max(years)))
 
 # 2. changing the bs-argument
 fm2cs <- gam(ts ~ s(years_obs, bs = "cs" ))

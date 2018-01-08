@@ -23,6 +23,7 @@ scenarios_barplot <- function(dt.list,
                               legend.pos = "topright", 
                               ...
 ){
+  library(data.table)
   dt.list <- lapply(dt.list, setorder) # order data.tables alphabetically 
   for(i in 1:length(dt.list)){ # selecting countries/industries
     if(names(dt.list[[1]])[1] == "Country") dt.list[[i]] <- dt.list[[i]][Country %in% sectors]

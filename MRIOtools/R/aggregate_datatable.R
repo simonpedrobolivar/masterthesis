@@ -20,9 +20,9 @@ aggregate_datatable <- function(dt,
   dt_agg <- rbind(dt_agg, tempdt)
   return(dt_agg)
 }
-
-
-
-
+dt <- (scen_GWP100byCountry)[[1]]
+n = 5
+col = "V1"
+aggregate_datatable(dt, n , col)
 
 
