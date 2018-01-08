@@ -5,7 +5,7 @@
 \title{Barplots to compare scenarios according to Region/INdusstry etc..}
 \usage{
 scenarios_barplot(dt.list, sectors, scale = F, colorvec = 1:100, grid = F,
-  xaxt.steps, ylim.adjust = 0, legend = T, legend.pos = "topright")
+  yaxt.steps, ylim.adjust = 0, legend = T, legend.pos = "topright", ...)
 }
 \arguments{
 \item{dt.list}{list with data.tables. Each element of the list represents one scenario. The data.tables need to have 2 columns: one with Country/Industry etc, one with the values. If legend = T the names of the list elements need to the scenario names}
@@ -14,7 +14,9 @@ scenarios_barplot(dt.list, sectors, scale = F, colorvec = 1:100, grid = F,
 
 \item{colorvec}{vector with colorcodes}
 
-\item{xaxt.steps}{steps for drawing tick marks at x-axis}
+\item{yaxt.steps}{steps for drawing tick marks at x-axis}
+
+\item{ylim.adjust}{adjusts the upper limit of the y-axis. Adjust if you want more space for the legend}
 
 \item{legend}{boolean,  draw a legend??}
 
