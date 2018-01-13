@@ -34,14 +34,14 @@ cv <- function(x, years.obs, year.split, type = "glm", ... ){
                    end = years.train[length(years.train)]), ...)
       preds <- as.numeric(forecast(fm, 
                                    h = years.obs[n.years] - years.train[length(years.train)])$mean) # last year - last year of train data  
-      print(paste("h=",years.obs[n.years] - years.train[length(years.train)]))
+      #print(paste("h=",years.obs[n.years] - years.train[length(years.train)]))
     }
-    print(preds)
     preds.dt <- rbindlist(list(preds.dt, list(rep(year.split + i - 1, n.years2model + 1 - i), (year.split + i):years.obs[length(years.obs)], preds, x[(n.years - n.years2model + i):n.years])))
     
   }
   
   return(preds.dt)
 }
+#cv(ts, years.obs = years_obs, year.split = 2000, type = "ets")
 
 
