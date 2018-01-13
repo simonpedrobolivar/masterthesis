@@ -3,8 +3,9 @@
 #' @export
 
 test_fun <- function(ts) {
-  return(ts[ , lapply(ts, scale)])
+  #return(ts[ , lapply(ts, scale)])
          #[,lapply(.SD, function(x) ifelse(is.nan(x), 0, x))])
+  return(as.data.table(apply(ts, 2, scale)))
 }
 
 
