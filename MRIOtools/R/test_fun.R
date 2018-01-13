@@ -3,7 +3,8 @@
 #' @export
 
 test_fun <- function(ts) {
-  return(transpose(transpose(ts)[ , lapply(.SD, scale)]))[,lapply(.SD, function(x) ifelse(is.nan(x), 0, x))]
+  return(ts[ , lapply(.SD, scale)])
+         #[,lapply(.SD, function(x) ifelse(is.nan(x), 0, x))])
 }
 
 
