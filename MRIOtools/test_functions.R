@@ -40,10 +40,23 @@ plot(test[Year_forecast - Year_split == 2]$est,  test[Year_forecast - Year_split
 lines(0:12, 0:12)
 cor(test[Year_forecast - Year_split == 1]$est,  test[Year_forecast - Year_split == 1]$obs)^2
 
+## 3c. with progress bar
+test <- validate_forecast(mat.list = test_mat_list, years.obs =  years_obs_test, year.split = 2005, type = "glm", parallel = T, scale = T, progress.bar = T)
 
 
 
 test <- create_timeseries(test_mat_list)
+ts_test <- create_timeseries(test_mat_list)
+
+(transpose(transpose(ts_test)[ , lapply(.SD, scale)]))[,lapply(.SD, function(x) ifelse(is.nan(x), 0, x))]
+
+
+fun((ts_test))
+
+
+
+
+
 a <- as.data.table(t(apply(test, 1, scale)))
 test[,1] <- NaN
 test[,lapply(.SD, function(x) ifelse(is.nan(x), 0, x))]
