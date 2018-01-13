@@ -15,7 +15,7 @@ validate_forecast <- function(mat.list, years.obs, year.split, parallel = F, n.c
   # create timeseries
   ts <- create_timeseries(mat.list)
   if(scale){ # scale each timeseries (center to 0, scaled by root-mean-squatered). It is necessary to transpose ts first, then scale and then transpose again, because data.tables can (as far as I know) only apply functions column-wise. Time series with only Zeros (0) are scaled to NaN and thus need to be set to 0 again. 
-    ts <- (transpose(transpose(ts)[ , lapply(.SD, scale)]))[,lapply(.SD, function(x) ifelse(is.nan(x), 0, x))]
+    ts <- (transpose(transpose(as.data.frame(ts))[ , lapply(.SD, scale)]))[,lapply(.SD, function(x) ifelse(is.nan(x), 0, x))]
   }
   if(!progress.bar){
     if(parallel == T){ # parallele compution on multiple cores
