@@ -15,5 +15,7 @@ Imports:
     parallel, 
     lattice, 
     foreach, 
-    doParallel
+    doParallel, 
+    forecast, 
+    mgcv
 	
